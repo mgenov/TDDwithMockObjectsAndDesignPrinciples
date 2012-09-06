@@ -1,16 +1,22 @@
 package tddmicroexercises.tirepressuremonitoringsystem;
 
 public class Alarm implements IAlarm {
-  private final double lowPressureThreshold = 17;
-  private final double highPressureThreshold = 21;
+  private final double lowPressureThreshold;
+  private final double highPressureThreshold;
 
-  RandomPressureTelemetrySensor randomPressureTelemetrySensor = new RandomPressureTelemetrySensor();
+  private final TelemetrySensor telemetrySensor;
+
+  public Alarm(TelemetrySensor telemetrySensor, double  lowPressureThreshold, double highPressureThreshold) {
+    this.telemetrySensor = telemetrySensor;
+    this.lowPressureThreshold = lowPressureThreshold;
+    this.highPressureThreshold = highPressureThreshold;
+  }
 
   boolean alarmOn = false;
   private long alarmCount = 0;
 
   public void check() {
-    double psiPressureValue = randomPressureTelemetrySensor.popNextPressurePsiValue();
+    double psiPressureValue = telemetrySensor.popNextPressurePsiValue();
 
     if (psiPressureValue < lowPressureThreshold || highPressureThreshold < psiPressureValue) {
       alarmOn = true;
