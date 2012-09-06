@@ -65,17 +65,15 @@ public class AlarmTest {
     assertAlarmStatus(true);
   }
 
-  private void pretendPressureReturnedFromSensorIs(final double expectedPressure) {
-    context.checking(new Expectations() {{
-      oneOf(telemetrySensor).popNextPressurePsiValue();
-      will(returnValue(expectedPressure));
-    }});
-  }
-
-
-
   private void assertAlarmStatus(boolean expectedStatus) {
     assertThat(alarm.isAlarmOn(), is(equalTo(expectedStatus)));
   }
+
+  private void pretendPressureReturnedFromSensorIs(final double expectedPressure) {
+      context.checking(new Expectations() {{
+        oneOf(telemetrySensor).popNextPressurePsiValue();
+        will(returnValue(expectedPressure));
+      }});
+    }
 
 }
