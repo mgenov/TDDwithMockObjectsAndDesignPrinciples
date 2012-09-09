@@ -13,14 +13,12 @@ public class Alarm implements IAlarm {
   }
 
   boolean alarmOn = false;
-  private long alarmCount = 0;
 
   public void check() {
     double psiPressureValue = telemetrySensor.popNextPressurePsiValue();
 
     if (psiPressureValue < lowPressureThreshold || highPressureThreshold < psiPressureValue) {
       alarmOn = true;
-      alarmCount += 1;
     }
   }
 
